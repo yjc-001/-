@@ -523,6 +523,7 @@
         }
     </style>
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
     <!-- 第一页面 -->
@@ -798,5 +799,31 @@
             });
         })();
     </script>
+
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop style="display:none;">
+        <source src="Innocence(1).mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        (function() {
+            const bgMusic = document.getElementById('bgMusic');
+            const titleClick = document.getElementById('titleClick');
+            let isPlaying = false;
+
+            // 用户首次点击标题时播放音乐，之后持续播放
+            titleClick.addEventListener('click', function() {
+                if (!isPlaying && bgMusic) {
+                    bgMusic.volume = 0.5;
+                    bgMusic.play().then(function() {
+                        isPlaying = true;
+                    }).catch(function(e) {
+                        console.log('音乐播放失败:', e);
+                    });
+                }
+            });
+        })();
+    </script>
+
 </body>
 </html>
