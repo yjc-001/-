@@ -432,21 +432,7 @@
             padding: 0 20px;
         }
 
-        /* 第二页标题 - 无光标 */
-        .page-two-content h2 {
-            font-size: 3rem;
-            font-weight: 300;
-            letter-spacing: 1rem;
-            margin-bottom: 2rem;
-            text-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
-            font-family: 'Microsoft YaHei', sans-serif;
-            opacity: 0;
-            transition: opacity 1.5s ease-out;
-        }
 
-        .page-two-content h2.show {
-            opacity: 1;
-        }
 
         /* 第二页打字机段落 */
         .page-two-content .poem-container {
@@ -489,7 +475,6 @@
         }
 
         .back-btn {
-            margin-top: 3rem;
             padding: 12px 40px;
             background: transparent;
             border: 1px solid rgba(100, 200, 255, 0.5);
@@ -498,8 +483,9 @@
             letter-spacing: 0.3rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
+            width: 200px;
+            text-align: center;
+            box-sizing: border-box;
         }
 
         .back-btn.show {
@@ -508,10 +494,175 @@
             transition: all 0.8s ease-out;
         }
 
+        .back-btn {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        .btn-group.show .back-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .back-btn:hover {
             background: rgba(100, 200, 255, 0.1);
             border-color: rgba(100, 200, 255, 0.8);
             box-shadow: 0 0 20px rgba(100, 200, 255, 0.3);
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            opacity: 0;
+            transition: opacity 0.8s ease-out;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-top: 0;
+            z-index: 15;
+        }
+
+        .btn-group.show {
+            opacity: 1;
+        }
+
+        .btn-group.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .login-btn {
+            margin-top: 0;
+        }
+
+        .login-panel {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .login-panel.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .login-box {
+            width: 300px;
+            padding: 32px 28px 28px 28px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+            position: relative;
+        }
+
+        /* 登录框关闭按钮 */
+        .login-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            width: 22px;
+            height: 22px;
+            background: transparent;
+            border: 1px solid rgba(100, 200, 255, 0.25);
+            border-radius: 50%;
+            color: rgba(200, 230, 255, 0.5);
+            font-size: 0.75rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .login-close-btn:hover {
+            background: rgba(255, 100, 100, 0.15);
+            border-color: rgba(255, 100, 100, 0.5);
+            color: rgba(255, 150, 150, 0.9);
+            box-shadow: 0 0 10px rgba(255, 100, 100, 0.2);
+        }
+
+        .login-close-btn:active {
+            transform: scale(0.9);
+        }
+        .login-input-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-radius: 8px;
+            color: rgba(200, 230, 255, 0.9);
+            font-size: 1rem;
+            letter-spacing: 0.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        .login-input::placeholder {
+            color: rgba(200, 230, 255, 0.4);
+            letter-spacing: 0.2rem;
+        }
+
+        .login-input:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(100, 200, 255, 0.7);
+            box-shadow: 0 0 15px rgba(100, 200, 255, 0.2);
+        }
+
+        .confirm-btn {
+            margin-top: 0.3rem;
+            width: 100%;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .login-title {
+            font-size: 1.1rem;
+            letter-spacing: 0.4rem;
+            color: rgba(200, 230, 255, 0.8);
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
+            margin-bottom: 0.2rem;
+            font-weight: 300;
+        }
+        @media (max-width: 768px) {
+            .login-box {
+                width: 280px;
+                padding: 30px 20px;
+            }
+            .login-input {
+                font-size: 0.9rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -521,7 +672,7 @@
             .warp-typewriter .type-content { font-size: 1rem; }
             .page-two-content .poem-text { font-size: 0.9rem; letter-spacing: 0.2rem; }
         }
-    
+
         /* 音乐控制按钮 - 只在第二页显示 */
         .music-nav-btn {
             position: fixed;
@@ -569,6 +720,44 @@
             right: 20px;
         }
 
+        /* 第二页标题 - 音乐控制 */
+        .page-two-content h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 1rem;
+            margin-bottom: 0;
+            text-shadow: 0 0 30px rgba(100, 200, 255, 0.5);
+            font-family: 'Microsoft YaHei', sans-serif;
+            opacity: 0;
+            transition: opacity 1.5s ease-out, color 0.5s ease, text-shadow 0.5s ease;
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 12;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+            color: rgba(220, 240, 255, 0.95);
+        }
+
+        .page-two-content h2.show {
+            opacity: 1;
+        }
+
+        .page-two-content h2.music-paused {
+            color: rgba(100, 160, 220, 0.6);
+            text-shadow: 0 0 15px rgba(100, 200, 255, 0.2);
+        }
+
+        .page-two-content h2:hover {
+            text-shadow: 0 0 40px rgba(100, 200, 255, 0.7);
+        }
+
+        .page-two-content h2:active {
+            transform: translateX(-50%) scale(0.98);
+        }
+
         /* 音乐名称提示 */
         .music-name-tip {
             position: fixed;
@@ -598,7 +787,267 @@
             .music-nav-btn.next { right: 10px; }
         }
 
-</style>
+
+        /* ========== 第三页面 - 档案馆 ========== */
+        .page-three {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 300;
+            display: none;
+            overflow: hidden;
+        }
+
+        .page-three.active {
+            display: block;
+        }
+
+        .page-three-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1.5s ease-out;
+        }
+
+        .page-three-bg.show {
+            opacity: 1;
+        }
+
+        .page-three-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 10, 25, 0.75);
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 1.5s ease-out;
+        }
+
+        .page-three-overlay.show {
+            opacity: 1;
+        }
+
+        .page-three-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 0 40px;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        .page-three-content.show {
+            opacity: 1;
+        }
+
+        .archive-title {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 1.2rem;
+            color: rgba(220, 240, 255, 0.95);
+            text-shadow: 0 0 40px rgba(100, 200, 255, 0.4), 0 0 80px rgba(100, 200, 255, 0.15);
+            margin-bottom: 4rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 1.2s ease-out;
+        }
+
+        .archive-title.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out 0.4s;
+        }
+
+        .archive-grid.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .archive-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(100, 200, 255, 0.15);
+            border-radius: 12px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .archive-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(100, 200, 255, 0.6), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .archive-card:hover {
+            background: rgba(100, 200, 255, 0.08);
+            border-color: rgba(100, 200, 255, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(100, 200, 255, 0.1);
+        }
+
+        .archive-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            color: rgba(150, 210, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .archive-card:hover .card-icon {
+            color: rgba(200, 230, 255, 1);
+            text-shadow: 0 0 15px rgba(100, 200, 255, 0.5);
+        }
+
+        .card-name {
+            font-size: 1.1rem;
+            letter-spacing: 0.3rem;
+            color: rgba(220, 240, 255, 0.9);
+            margin-bottom: 0.6rem;
+            font-weight: 300;
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            letter-spacing: 0.1rem;
+            color: rgba(150, 190, 230, 0.5);
+            line-height: 1.6;
+        }
+
+        .archive-back {
+            margin-top: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out 0.8s;
+        }
+
+        .archive-back.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 身份验证失败提示 */
+        .auth-fail-tip {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .auth-fail-tip.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .auth-fail-box {
+            background: rgba(20, 10, 10, 0.9);
+            border: 1px solid rgba(255, 80, 80, 0.4);
+            border-radius: 12px;
+            padding: 2.5rem 3rem;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 0 40px rgba(255, 50, 50, 0.15);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .auth-fail-tip.active .auth-fail-box {
+            transform: scale(1);
+        }
+
+        .auth-fail-icon {
+            font-size: 2.5rem;
+            color: rgba(255, 100, 100, 0.9);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 50, 50, 0.4);
+        }
+
+        .auth-fail-text {
+            font-size: 1.3rem;
+            letter-spacing: 0.3rem;
+            color: rgba(255, 150, 150, 0.95);
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-fail-sub {
+            font-size: 0.9rem;
+            letter-spacing: 0.15rem;
+            color: rgba(200, 120, 120, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .archive-title {
+                font-size: 2rem;
+                letter-spacing: 0.6rem;
+                margin-bottom: 2.5rem;
+            }
+            .archive-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            .archive-card {
+                padding: 1.8rem 1rem;
+            }
+            .card-icon {
+                font-size: 1.8rem;
+            }
+            .card-name {
+                font-size: 0.95rem;
+                letter-spacing: 0.2rem;
+            }
+        }
+
+    </style>
 <base target="_blank">
 <base target="_blank">
 </head>
@@ -646,236 +1095,23 @@
             <div class="poem-container" id="poemContainer">
                 <div class="poem-text" id="poemText"><span class="cursor" id="poemCursor"></span></div>
             </div>
-            <button class="back-btn" id="backBtn">返回原点</button>
+            <div class="btn-group" id="btnGroup">
+                <button class="back-btn" id="backBtn">返回原点</button>
+                <button class="back-btn login-btn" id="loginBtn">登陆</button>
+            </div>
+            <div class="login-panel" id="loginPanel">
+                <div class="login-box">
+                    <button class="login-close-btn" id="loginCloseBtn" title="关闭">&#10005;</button>
+                    <div class="login-title">身份验证</div>
+                    <div class="login-input-group">
+                        <input type="text" class="login-input" id="loginId" placeholder="编号" autocomplete="off">
+                        <input type="password" class="login-input" id="loginKey" placeholder="密钥" autocomplete="off">
+                    </div>
+                    <button class="back-btn confirm-btn" id="confirmBtn">确定</button>
+                </div>
+            </div>
         </div>
     </div>
-
-    <script>
-        (function() {
-            // ========== 第一页面幻灯片 ==========
-            const slides = document.querySelectorAll('.slide');
-            const particlesContainer = document.getElementById('particles');
-            const totalSlides = slides.length;
-            let currentIndex = 0;
-            const slideDuration = 5000;
-
-            function createParticles() {
-                const particleCount = 30;
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    const size = Math.random() * 4 + 2;
-                    particle.style.width = size + 'px';
-                    particle.style.height = size + 'px';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
-                    particle.style.animationDelay = (Math.random() * 5) + 's';
-                    particle.style.opacity = Math.random() * 0.5 + 0.2;
-                    particlesContainer.appendChild(particle);
-                }
-            }
-
-            function goToSlide(index) {
-                slides[currentIndex].classList.remove('active');
-                currentIndex = index;
-                slides[currentIndex].classList.add('active');
-            }
-
-            function nextSlide() {
-                const nextIndex = (currentIndex + 1) % totalSlides;
-                goToSlide(nextIndex);
-            }
-
-            function startAutoPlay() {
-                setInterval(nextSlide, slideDuration);
-            }
-
-            createParticles();
-            startAutoPlay();
-
-            // ========== 打字机效果工具函数 ==========
-            function typeWriter(element, cursor, lines, speed, lineDelay, onComplete) {
-                let lineIndex = 0;
-                let charIndex = 0;
-                let currentText = '';
-
-                function type() {
-                    if (lineIndex >= lines.length) {
-                        cursor.classList.add('fade-out');
-                        setTimeout(function() {
-                            if (onComplete) onComplete();
-                        }, 500);
-                        return;
-                    }
-
-                    const line = lines[lineIndex];
-
-                    if (charIndex < line.length) {
-                        currentText += line.charAt(charIndex);
-                        element.textContent = currentText;
-                        element.appendChild(cursor);
-                        charIndex++;
-                        setTimeout(type, speed);
-                    } else {
-                        currentText += '\n';
-                        element.textContent = currentText;
-                        element.appendChild(cursor);
-                        lineIndex++;
-                        charIndex = 0;
-                        setTimeout(type, lineDelay);
-                    }
-                }
-                type();
-            }
-
-            function calcTypeDuration(lines, speed, lineDelay) {
-                let total = 0;
-                for (let i = 0; i < lines.length; i++) {
-                    total += lines[i].length * speed;
-                    if (i < lines.length - 1) {
-                        total += lineDelay;
-                    }
-                }
-                return total;
-            }
-
-            // ========== 时空穿梭转场 ==========
-            const titleClick = document.getElementById('titleClick');
-            const warpTransition = document.getElementById('warpTransition');
-            const warpBg = document.getElementById('warpBg');
-            const warpBgOverlay = document.getElementById('warpBgOverlay');
-            const warpTypewriter = document.getElementById('warpTypewriter');
-            const warpTypeContent = document.getElementById('warpTypeContent');
-            const warpCursor = document.getElementById('warpCursor');
-            const coreBeam = document.getElementById('coreBeam');
-            const fullWhiteout = document.getElementById('fullWhiteout');
-            const pageTwo = document.getElementById('pageTwo');
-            const pageTwoBgImg = document.getElementById('pageTwoBgImg');
-            const pageTwoOverlay = document.getElementById('pageTwoOverlay');
-            const pageTwoGrid = document.getElementById('pageTwoGrid');
-            const backBtn = document.getElementById('backBtn');
-            const pageOne = document.getElementById('pageOne');
-            const pageTwoTitle = document.getElementById('pageTwoTitle');
-            const poemContainer = document.getElementById('poemContainer');
-            const poemText = document.getElementById('poemText');
-            const poemCursor = document.getElementById('poemCursor');
-
-            const warpLines = [
-                '正在锁定坐标信息',
-                '坐标已锁定',
-                '正在启动曲率引擎',
-                '目标：枢纽星系云殇总部'
-            ];
-
-            const poemLines = [
-                '穿越万千星河，抵达未知彼岸',
-                '这里是时间的尽头，也是新的开始',
-                '每一颗星辰都承载着过往的记忆',
-                '每一次跃迁都是命运的抉择'
-            ];
-
-            titleClick.addEventListener('click', function() {
-                const warpTypeTime = calcTypeDuration(warpLines, 120, 600);
-                const poemTypeTime = calcTypeDuration(poemLines, 150, 800);
-
-                // 第一阶段：背景和文字虚化变白
-                pageOne.classList.add('warping');
-                titleClick.classList.add('warping');
-                particlesContainer.classList.add('warping');
-
-                // 第二阶段：显示转场背景图 + 打字机文本
-                setTimeout(function() {
-                    warpTransition.classList.add('active');
-                    warpBg.classList.add('active');
-                    warpBgOverlay.classList.add('active');
-                    warpTypewriter.classList.add('active');
-
-                    typeWriter(warpTypeContent, warpCursor, warpLines, 120, 600, function() {
-                        // 文本打完后，转场背景淡出
-                        warpBg.classList.add('fade-out');
-                        warpBgOverlay.classList.add('fade-out');
-                        warpTypewriter.style.opacity = '0';
-
-                        // 背景淡出后，启动白光束效果
-                        setTimeout(function() {
-                            coreBeam.classList.add('active');
-
-                            // 光束铺满后，全屏白芒
-                            setTimeout(function() {
-                                fullWhiteout.classList.add('active');
-                            }, 800);
-
-                            // 白芒持续一段时间后，开始淡出
-                            setTimeout(function() {
-                                // 先显示第二页背景（在白光下准备）
-                                pageOne.style.display = 'none';
-                                pageOne.classList.remove('warping');
-                                titleClick.classList.remove('warping');
-                                particlesContainer.classList.remove('warping');
-                                pageTwo.classList.add('active');
-                                pageTwoBgImg.classList.add('show');
-                                pageTwoOverlay.classList.add('show');
-                                pageTwoGrid.classList.add('show');
-
-                                // 白光渐渐消失，露出第二页背景
-                                fullWhiteout.classList.add('fade-out');
-                                coreBeam.classList.remove('active');
-
-                                // 背景完全显示后，淡入标题
-                                setTimeout(function() {
-                                    pageTwoTitle.classList.add('show');
-
-                                    // 标题显示后，诗句容器淡入并开始打字
-                                    setTimeout(function() {
-                                        poemContainer.classList.add('show');
-                                        typeWriter(poemText, poemCursor, poemLines, 150, 800);
-                                    }, 1500);
-
-                                    // 返回按钮
-                                    const backBtnDelay = 1500 + poemTypeTime + 1500;
-                                    setTimeout(function() {
-                                        backBtn.classList.add('show');
-                                    }, backBtnDelay);
-                                }, 2000);
-
-                                // 清理转场
-                                setTimeout(function() {
-                                    warpTransition.classList.remove('active');
-                                    warpBg.classList.remove('active');
-                                    warpBg.classList.remove('fade-out');
-                                    warpBgOverlay.classList.remove('active');
-                                    warpBgOverlay.classList.remove('fade-out');
-                                    warpTypewriter.classList.remove('active');
-                                    warpTypewriter.style.opacity = '';
-                                    warpTypeContent.textContent = '';
-                                    warpCursor.classList.remove('fade-out');
-                                    fullWhiteout.classList.remove('active');
-                                    fullWhiteout.classList.remove('fade-out');
-                                }, 2500);
-                            }, 1500);
-                        }, 1000);
-                    });
-                }, 2500);
-            });
-
-            // 返回按钮
-            backBtn.addEventListener('click', function() {
-                pageTwo.classList.remove('active');
-                pageTwoBgImg.classList.remove('show');
-                pageTwoOverlay.classList.remove('show');
-                pageTwoGrid.classList.remove('show');
-                pageTwoTitle.classList.remove('show');
-                poemContainer.classList.remove('show');
-                poemText.textContent = '';
-                poemCursor.classList.remove('fade-out');
-                backBtn.classList.remove('show');
-                pageOne.style.display = 'block';
-                slides.forEach(s => s.classList.remove('active'));
-                currentIndex = 0;
-                slides[0].classList.add('active');
-            });
-        })();
-    </script>
 
     <!-- 背景音乐 -->
     <audio id="bgMusic" style="display:none;"></audio>
@@ -885,115 +1121,674 @@
     <button class="music-nav-btn next" id="musicNext" title="下一首">&#9654;</button>
     <div class="music-name-tip" id="musicNameTip"></div>
 
+    <!-- 第三页面 - 档案馆 -->
+    <div class="page-three" id="pageThree">
+        <div class="page-three-bg"></div>
+        <div class="page-three-overlay"></div>
+
+        <div class="page-three-content">
+            <h2 class="archive-title">档案馆</h2>
+
+            <div class="archive-grid">
+                <div class="archive-card" data-type="public">
+                    <div class="card-icon">&#9776;</div>
+                    <div class="card-name">公共档案</div>
+                    <div class="card-desc">公开资料与基础信息</div>
+                </div>
+
+                <div class="archive-card" data-type="private">
+                    <div class="card-icon">&#128274;</div>
+                    <div class="card-name">私人档案</div>
+                    <div class="card-desc">个人记录与私密数据</div>
+                </div>
+
+                <div class="archive-card" data-type="secret">
+                    <div class="card-icon">&#9733;</div>
+                    <div class="card-name">绝密档案</div>
+                    <div class="card-desc">最高权限机密文件</div>
+                </div>
+
+                <div class="archive-card" data-type="battle">
+                    <div class="card-icon">&#9876;</div>
+                    <div class="card-name">战斗记录</div>
+                    <div class="card-desc">作战日志与战术分析</div>
+                </div>
+            </div>
+
+            <button class="back-btn archive-back" id="archiveBackBtn">返回</button>
+        </div>
+    </div>
+
+    <!-- 身份验证失败提示 -->
+    <div class="auth-fail-tip" id="authFailTip">
+        <div class="auth-fail-box">
+            <div class="auth-fail-icon">&#9888;</div>
+            <div class="auth-fail-text">身份验证失败</div>
+            <div class="auth-fail-sub">编号或密钥错误</div>
+        </div>
+    </div>
+
     <script>
-        (function() {
-            // 音乐列表
-            const musicList = [
-                { name: '起风了', file: '起风了_买辣椒也用券.mp3' },
-                { name: 'Innocence', file: 'Innocence(1).mp3' }
-            ];
+    document.addEventListener('DOMContentLoaded', function() {
+        // 身份验证标记 - 记录用户是否已通过验证
+        var isVerified = false;
+        // 记录是否已访问过第二页（诗句只显示一次）
+        var hasVisitedPageTwo = false;
+        // 记录转场打字机文本是否已显示过
+        var hasShownWarpText = false;
 
-            const bgMusic = document.getElementById('bgMusic');
-            const musicPrev = document.getElementById('musicPrev');
-            const musicNext = document.getElementById('musicNext');
-            const musicNameTip = document.getElementById('musicNameTip');
-            const titleClick = document.getElementById('titleClick');
-            const pageTwo = document.getElementById('pageTwo');
-            const backBtn = document.getElementById('backBtn');
+        // ========== 第一页面幻灯片 ==========
+        const slides = document.querySelectorAll('.slide');
+        const particlesContainer = document.getElementById('particles');
+        const totalSlides = slides.length;
+        let currentIndex = 0;
+        const slideDuration = 5000;
 
-            let currentMusicIndex = 0;
-            let isPlaying = false;
-            let tipTimeout = null;
+        function createParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                particlesContainer.appendChild(particle);
+            }
+        }
 
-            // 加载指定索引的音乐
-            function loadMusic(index) {
-                currentMusicIndex = index;
-                bgMusic.src = musicList[index].file;
-                bgMusic.load();
-                if (isPlaying) {
-                    bgMusic.play().catch(function(e) {
-                        console.log('音乐播放失败:', e);
-                    });
+        function goToSlide(index) {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = index;
+            slides[currentIndex].classList.add('active');
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentIndex + 1) % totalSlides;
+            goToSlide(nextIndex);
+        }
+
+        function startAutoPlay() {
+            setInterval(nextSlide, slideDuration);
+        }
+
+        createParticles();
+        startAutoPlay();
+
+        // ========== 打字机效果工具函数 ==========
+        function typeWriter(element, cursor, lines, speed, lineDelay, onComplete) {
+            let lineIndex = 0;
+            let charIndex = 0;
+            let currentText = '';
+
+            function type() {
+                if (lineIndex >= lines.length) {
+                    cursor.classList.add('fade-out');
+                    setTimeout(function() {
+                        if (onComplete) onComplete();
+                    }, 500);
+                    return;
+                }
+
+                const line = lines[lineIndex];
+
+                if (charIndex < line.length) {
+                    currentText += line.charAt(charIndex);
+                    element.textContent = currentText;
+                    element.appendChild(cursor);
+                    charIndex++;
+                    setTimeout(type, speed);
+                } else {
+                    currentText += '\n';
+                    element.textContent = currentText;
+                    element.appendChild(cursor);
+                    lineIndex++;
+                    charIndex = 0;
+                    setTimeout(type, lineDelay);
                 }
             }
+            type();
+        }
 
-            // 显示音乐名称提示
-            function showMusicName() {
-                musicNameTip.textContent = '♪ ' + musicList[currentMusicIndex].name + ' ♪';
-                musicNameTip.classList.add('show');
-                if (tipTimeout) clearTimeout(tipTimeout);
-                tipTimeout = setTimeout(function() {
-                    musicNameTip.classList.remove('show');
-                }, 3000);
-            }
-
-            // 播放音乐
-            function playMusic() {
-                if (!isPlaying) {
-                    bgMusic.volume = 0.5;
-                    bgMusic.play().then(function() {
-                        isPlaying = true;
-                    }).catch(function(e) {
-                        console.log('音乐播放失败:', e);
-                    });
+        function calcTypeDuration(lines, speed, lineDelay) {
+            let total = 0;
+            for (let i = 0; i < lines.length; i++) {
+                total += lines[i].length * speed;
+                if (i < lines.length - 1) {
+                    total += lineDelay;
                 }
             }
+            return total;
+        }
 
-            // 上一首
-            musicPrev.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const newIndex = (currentMusicIndex - 1 + musicList.length) % musicList.length;
-                loadMusic(newIndex);
-                showMusicName();
+        // ========== 时空穿梭转场 ==========
+        const titleClick = document.getElementById('titleClick');
+        const warpTransition = document.getElementById('warpTransition');
+        const warpBg = document.getElementById('warpBg');
+        const warpBgOverlay = document.getElementById('warpBgOverlay');
+        const warpTypewriter = document.getElementById('warpTypewriter');
+        const warpTypeContent = document.getElementById('warpTypeContent');
+        const warpCursor = document.getElementById('warpCursor');
+        const coreBeam = document.getElementById('coreBeam');
+        const fullWhiteout = document.getElementById('fullWhiteout');
+        const pageTwo = document.getElementById('pageTwo');
+        const pageTwoBgImg = document.getElementById('pageTwoBgImg');
+        const pageTwoOverlay = document.getElementById('pageTwoOverlay');
+        const pageTwoGrid = document.getElementById('pageTwoGrid');
+        const backBtn = document.getElementById('backBtn');
+        const pageOne = document.getElementById('pageOne');
+        const pageTwoTitle = document.getElementById('pageTwoTitle');
+        const poemContainer = document.getElementById('poemContainer');
+        const poemText = document.getElementById('poemText');
+        const poemCursor = document.getElementById('poemCursor');
+        const loginBtn = document.getElementById('loginBtn');
+        const btnGroup = document.getElementById('btnGroup');
+
+        const warpLines = [
+            '正在锁定坐标信息',
+            '坐标已锁定',
+            '正在启动曲率引擎',
+            '目标：枢纽星系云殇总部'
+        ];
+
+        const poemLines = [
+            '穿越万千星河，抵达未知彼岸',
+            '这里是时间的尽头，也是新的开始',
+            '每一颗星辰都承载着过往的记忆',
+            '每一次跃迁都是命运的抉择'
+        ];
+
+        // 更新按钮组显示（根据验证状态）
+        function updateBtnGroup() {
+            if (isVerified) {
+                loginBtn.textContent = '档案馆';
+                loginBtn.classList.add('archive-btn');
+                loginBtn.classList.remove('login-btn');
+            } else {
+                loginBtn.textContent = '登陆';
+                loginBtn.classList.add('login-btn');
+                loginBtn.classList.remove('archive-btn');
+            }
+        }
+
+        titleClick.addEventListener('click', function() {
+            // 清除可能的内联 display:none，确保第二页能正常显示
+            pageTwo.style.display = '';
+
+            const warpTypeTime = calcTypeDuration(warpLines, 120, 600);
+            const poemTypeTime = calcTypeDuration(poemLines, 150, 800);
+
+            // 第一阶段：背景和文字虚化变白
+            pageOne.classList.add('warping');
+            titleClick.classList.add('warping');
+            particlesContainer.classList.add('warping');
+
+            // 第二阶段：显示转场背景图
+            setTimeout(function() {
+                warpTransition.classList.add('active');
+                warpBg.classList.add('active');
+                warpBgOverlay.classList.add('active');
+
+                function startBeamAndWhiteout() {
+                    // 背景淡出后，启动白光束效果
+                    setTimeout(function() {
+                        coreBeam.classList.add('active');
+
+                        // 光束铺满后，全屏白芒
+                        setTimeout(function() {
+                            fullWhiteout.classList.add('active');
+                        }, 800);
+
+                        // 白芒持续一段时间后，开始淡出
+                        setTimeout(function() {
+                            // 先显示第二页背景（在白光下准备）
+                            pageOne.style.display = 'none';
+                            pageOne.classList.remove('warping');
+                            titleClick.classList.remove('warping');
+                            particlesContainer.classList.remove('warping');
+                            pageTwo.classList.add('active');
+                            pageTwoBgImg.classList.add('show');
+                            pageTwoOverlay.classList.add('show');
+                            pageTwoGrid.classList.add('show');
+
+                            // 白光渐渐消失，露出第二页背景
+                            fullWhiteout.classList.add('fade-out');
+                            coreBeam.classList.remove('active');
+
+                            // 背景完全显示后，淡入标题
+                            setTimeout(function() {
+                                pageTwoTitle.classList.add('show');
+
+                                if (!hasVisitedPageTwo) {
+                                    // 首次进入第二页：显示诗句打字机
+                                    setTimeout(function() {
+                                        poemContainer.classList.add('show');
+                                        typeWriter(poemText, poemCursor, poemLines, 150, 800);
+                                    }, 1500);
+
+                                    // 诗句显示完毕后停留3秒，然后淡出
+                                    setTimeout(function() {
+                                        poemContainer.classList.remove('show');
+                                        poemContainer.style.opacity = '0';
+
+                                        // 文本淡出完毕后显示按钮组
+                                        setTimeout(function() {
+                                            btnGroup.classList.add('show');
+                                            hasVisitedPageTwo = true;
+                                        }, 800);
+                                    }, poemTypeTime + 3000);
+                                } else {
+                                    // 再次进入第二页：跳过诗句，直接显示按钮
+                                    setTimeout(function() {
+                                        btnGroup.classList.add('show');
+                                    }, 1500);
+                                }
+                            }, 2000);
+
+                            // 清理转场
+                            setTimeout(function() {
+                                warpTransition.classList.remove('active');
+                                warpBg.classList.remove('active');
+                                warpBg.classList.remove('fade-out');
+                                warpBgOverlay.classList.remove('active');
+                                warpBgOverlay.classList.remove('fade-out');
+                                warpTypewriter.classList.remove('active');
+                                warpTypewriter.style.opacity = '';
+                                warpTypeContent.textContent = '';
+                                warpCursor.classList.remove('fade-out');
+                                fullWhiteout.classList.remove('active');
+                                fullWhiteout.classList.remove('fade-out');
+                            }, 2500);
+                        }, 1500);
+                    }, 1000);
+                }
+
+                if (!hasShownWarpText) {
+                    // 首次：显示打字机文本
+                    warpTypewriter.classList.add('active');
+                    typeWriter(warpTypeContent, warpCursor, warpLines, 120, 600, function() {
+                        // 文本打完后，转场背景淡出
+                        warpBg.classList.add('fade-out');
+                        warpBgOverlay.classList.add('fade-out');
+                        warpTypewriter.style.opacity = '0';
+                        hasShownWarpText = true;
+                        startBeamAndWhiteout();
+                    });
+                } else {
+                    // 再次进入：跳过打字机文本，直接启动光束
+                    warpBg.classList.add('fade-out');
+                    warpBgOverlay.classList.add('fade-out');
+                    startBeamAndWhiteout();
+                }
+            }, 2500);
+        });
+
+        // 返回按钮 - 返回第一页
+        backBtn.addEventListener('click', function() {
+            // 完全重置第二页状态
+            pageTwo.classList.remove('active');
+            pageTwoBgImg.classList.remove('show');
+            pageTwoOverlay.classList.remove('show');
+            pageTwoGrid.classList.remove('show');
+            pageTwoTitle.classList.remove('show');
+            pageTwoTitle.style.opacity = '';
+            poemContainer.classList.remove('show');
+            poemContainer.style.opacity = '';
+            poemText.textContent = '';
+            poemCursor.classList.remove('fade-out');
+            btnGroup.classList.remove('show');
+            btnGroup.classList.remove('hide');
+            document.getElementById('loginPanel').classList.remove('show');
+            document.getElementById('loginId').value = '';
+            document.getElementById('loginKey').value = '';
+
+            // 重置第三页状态（如果第三页是激活的）
+            var pageThree = document.getElementById('pageThree');
+            if (pageThree.classList.contains('active')) {
+                pageThree.classList.remove('active');
+                document.querySelector('.page-three-bg').classList.remove('show');
+                document.querySelector('.page-three-overlay').classList.remove('show');
+                document.querySelector('.page-three-content').classList.remove('show');
+                document.querySelector('.archive-title').classList.remove('show');
+                document.querySelector('.archive-grid').classList.remove('show');
+                document.querySelector('.archive-back').classList.remove('show');
+            }
+
+            // 彻底隐藏第二页，避免透明层阻挡第一页点击
+            pageTwo.style.display = 'none';
+
+            // 显示第一页
+            pageOne.style.display = 'block';
+            slides.forEach(s => s.classList.remove('active'));
+            currentIndex = 0;
+            slides[0].classList.add('active');
+
+            // 注意：isVerified 状态保留，不清除
+            // 这样用户再次点击标题时可以直接进入第三页
+        });
+
+        // 登陆/档案馆按钮
+        loginBtn.addEventListener('click', function() {
+            if (isVerified) {
+                // 已验证，直接进入第三页
+                enterPageThree();
+            } else {
+                // 未验证，显示登录面板
+                btnGroup.classList.add('hide');
+                pageTwoTitle.style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loginPanel').classList.add('show');
+                }, 300);
+            }
+        });
+
+        // 确定按钮 - 身份验证
+        document.getElementById('confirmBtn').addEventListener('click', function() {
+            var id = document.getElementById('loginId').value;
+            var key = document.getElementById('loginKey').value;
+
+            // 验证逻辑：编号和密钥都为 12345
+            if (id === '12345' && key === '12345') {
+                // 验证成功，关闭登录面板并更新按钮
+                document.getElementById('loginPanel').classList.remove('show');
+                setTimeout(function() {
+                    btnGroup.classList.remove('hide');
+                    pageTwoTitle.style.opacity = '1';
+                    document.getElementById('loginId').value = '';
+                    document.getElementById('loginKey').value = '';
+                    // 更新按钮为档案馆
+                    updateBtnGroup();
+                    // 进入第三页
+                    setTimeout(function() {
+                        enterPageThree();
+                    }, 500);
+                }, 300);
+            } else {
+                // 验证失败，显示提示
+                showAuthFail();
+            }
+        });
+
+        // 进入第三页面
+        function enterPageThree() {
+            // 标记用户已通过身份验证
+            isVerified = true;
+            // 更新按钮显示
+            updateBtnGroup();
+
+            var pageTwoEl = document.getElementById('pageTwo');
+            var pageThree = document.getElementById('pageThree');
+            var pageThreeBg = document.querySelector('.page-three-bg');
+            var pageThreeOverlay = document.querySelector('.page-three-overlay');
+            var pageThreeContent = document.querySelector('.page-three-content');
+            var archiveTitle = document.querySelector('.archive-title');
+            var archiveGrid = document.querySelector('.archive-grid');
+            var archiveBack = document.querySelector('.archive-back');
+
+            // 隐藏第二页
+            pageTwoEl.style.display = 'none';
+
+            // 显示第三页
+            pageThree.classList.add('active');
+
+            // 逐步显示元素
+            setTimeout(function() {
+                pageThreeBg.classList.add('show');
+                pageThreeOverlay.classList.add('show');
+            }, 100);
+
+            setTimeout(function() {
+                pageThreeContent.classList.add('show');
+            }, 300);
+
+            setTimeout(function() {
+                archiveTitle.classList.add('show');
+            }, 500);
+
+            setTimeout(function() {
+                archiveGrid.classList.add('show');
+            }, 800);
+
+            setTimeout(function() {
+                archiveBack.classList.add('show');
+            }, 1200);
+        }
+
+        // 显示身份验证失败提示
+        function showAuthFail() {
+            var tip = document.getElementById('authFailTip');
+            tip.classList.add('active');
+
+            // 2秒后自动消失
+            setTimeout(function() {
+                tip.classList.remove('active');
+            }, 2000);
+        }
+
+        // 点击提示背景也可关闭
+        document.getElementById('authFailTip').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        // 关闭登录面板按钮
+        document.getElementById('loginCloseBtn').addEventListener('click', function() {
+            document.getElementById('loginPanel').classList.remove('show');
+            setTimeout(function() {
+                btnGroup.classList.remove('hide');
+                pageTwoTitle.style.opacity = '1';
+                document.getElementById('loginId').value = '';
+                document.getElementById('loginKey').value = '';
+            }, 300);
+        });
+
+        // ========== 修复：档案馆返回按钮 ==========
+        // 档案馆返回按钮 - 返回第二页
+        var archiveBackBtn = document.getElementById('archiveBackBtn');
+        if (archiveBackBtn) {
+            archiveBackBtn.addEventListener('click', function() {
+                var pageTwoEl = document.getElementById('pageTwo');
+                var pageThree = document.getElementById('pageThree');
+                var pageThreeBg = document.querySelector('.page-three-bg');
+                var pageThreeOverlay = document.querySelector('.page-three-overlay');
+                var pageThreeContent = document.querySelector('.page-three-content');
+                var archiveTitle = document.querySelector('.archive-title');
+                var archiveGrid = document.querySelector('.archive-grid');
+                var archiveBack = document.querySelector('.archive-back');
+
+                // 隐藏第三页元素
+                archiveBack.classList.remove('show');
+                archiveGrid.classList.remove('show');
+                archiveTitle.classList.remove('show');
+                pageThreeContent.classList.remove('show');
+                pageThreeOverlay.classList.remove('show');
+                pageThreeBg.classList.remove('show');
+
+                // 完全隐藏第三页，显示第二页
+                setTimeout(function() {
+                    pageThree.classList.remove('active');
+                    pageTwoEl.style.display = 'block';
+                    pageTwoEl.classList.add('active');
+
+                    // 恢复第二页背景元素
+                    pageTwoBgImg.classList.add('show');
+                    pageTwoOverlay.classList.add('show');
+                    pageTwoGrid.classList.add('show');
+
+                    // 恢复第二页状态 - 显示标题和按钮组
+                    document.getElementById('loginPanel').classList.remove('show');
+                    btnGroup.classList.remove('hide');
+                    pageTwoTitle.style.opacity = '1';
+                    pageTwoTitle.classList.add('show');
+                    btnGroup.classList.add('show');
+                    document.getElementById('loginId').value = '';
+                    document.getElementById('loginKey').value = '';
+
+                    // 更新按钮为档案馆（因为已经验证过）
+                    updateBtnGroup();
+                }, 800);
             });
+        }
 
-            // 下一首
-            musicNext.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const newIndex = (currentMusicIndex + 1) % musicList.length;
-                loadMusic(newIndex);
-                showMusicName();
-            });
+        // ========== 音乐控制 ==========
+        // 音乐列表
+        const musicList = [
+            { name: '起风了', file: '起风了_买辣椒也用券.mp3' },
+            { name: 'Innocence', file: 'Innocence(1).mp3' }
+        ];
 
-            // 用户首次点击标题时播放音乐
-            titleClick.addEventListener('click', function() {
-                playMusic();
-            });
+        const bgMusic = document.getElementById('bgMusic');
+        const musicPrev = document.getElementById('musicPrev');
+        const musicNext = document.getElementById('musicNext');
+        const musicNameTip = document.getElementById('musicNameTip');
+        // 标题已作为音乐控制元素（pageTwoTitle）
 
-            // 监听 pageTwo 的显示状态，控制按钮显示/隐藏
-            const pageTwoObserver = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                        if (pageTwo.classList.contains('active')) {
-                            musicPrev.classList.add('show');
-                            musicNext.classList.add('show');
-                        } else {
-                            musicPrev.classList.remove('show');
-                            musicNext.classList.remove('show');
-                            musicNameTip.classList.remove('show');
-                        }
-                    }
+        let currentMusicIndex = 0;
+        let isPlaying = false;
+        let tipTimeout = null;
+        // 全局音乐开关：用户手动暂停后，跳转不再自动播放
+        let musicGloballyEnabled = true;
+
+        // 加载指定索引的音乐
+        function loadMusic(index) {
+            currentMusicIndex = index;
+            bgMusic.src = musicList[index].file;
+            bgMusic.load();
+            if (isPlaying && musicGloballyEnabled) {
+                bgMusic.play().then(function() {
+                    updateTitleMusicState();
+                }).catch(function(e) {
+                    console.log('音乐播放失败:', e);
                 });
+            }
+        }
+
+        // 显示音乐名称提示
+        function showMusicName() {
+            musicNameTip.textContent = '♪ ' + musicList[currentMusicIndex].name + ' ♪';
+            musicNameTip.classList.add('show');
+            if (tipTimeout) clearTimeout(tipTimeout);
+            tipTimeout = setTimeout(function() {
+                musicNameTip.classList.remove('show');
+            }, 3000);
+        }
+
+        // 播放音乐（受全局开关控制）
+        function playMusic() {
+            if (!isPlaying && musicGloballyEnabled) {
+                bgMusic.volume = 0.5;
+                bgMusic.play().then(function() {
+                    isPlaying = true;
+                    updateTitleMusicState();
+                }).catch(function(e) {
+                    console.log('音乐播放失败:', e);
+                });
+            }
+        }
+
+        // 暂停音乐（同时关闭全局开关）
+        function pauseMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                isPlaying = false;
+                musicGloballyEnabled = false;
+                updateTitleMusicState();
+            }
+        }
+
+        // 更新标题音乐状态（颜色变化）
+        function updateTitleMusicState() {
+            if (pageTwoTitle) {
+                if (isPlaying) {
+                    pageTwoTitle.classList.remove('music-paused');
+                } else {
+                    pageTwoTitle.classList.add('music-paused');
+                }
+            }
+        }
+
+        // 标题点击事件 - 控制音乐播放/暂停
+        pageTwoTitle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (isPlaying) {
+                pauseMusic();
+            } else {
+                // 用户手动点击播放时，重新启用全局开关
+                musicGloballyEnabled = true;
+                playMusic();
+            }
+        });
+
+        // 上一首
+        musicPrev.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const newIndex = (currentMusicIndex - 1 + musicList.length) % musicList.length;
+            loadMusic(newIndex);
+            showMusicName();
+        });
+
+        // 下一首
+        musicNext.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const newIndex = (currentMusicIndex + 1) % musicList.length;
+            loadMusic(newIndex);
+            showMusicName();
+        });
+
+        // 用户首次点击标题时播放音乐
+        titleClick.addEventListener('click', function() {
+            playMusic();
+        });
+
+        // 监听 pageTwo 的显示状态，控制按钮显示/隐藏
+        const pageTwoObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    if (pageTwo.classList.contains('active')) {
+                        musicPrev.classList.add('show');
+                        musicNext.classList.add('show');
+                    } else {
+                        musicPrev.classList.remove('show');
+                        musicNext.classList.remove('show');
+                        musicNameTip.classList.remove('show');
+                    }
+                }
             });
+        });
 
-            pageTwoObserver.observe(pageTwo, { attributes: true });
+        pageTwoObserver.observe(pageTwo, { attributes: true });
 
-            // 返回原点时不停止音乐
-            backBtn.addEventListener('click', function() {
-                // 音乐继续播放，不做任何操作
+        // 监听 pageTwo 显示状态，同步标题音乐状态
+        const titleMusicObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    if (pageTwo.classList.contains('active')) {
+                        updateTitleMusicState();
+                    }
+                }
             });
+        });
+        titleMusicObserver.observe(pageTwo, { attributes: true });
 
-            // 音乐结束时自动播放下一首
-            bgMusic.addEventListener('ended', function() {
-                const newIndex = (currentMusicIndex + 1) % musicList.length;
-                loadMusic(newIndex);
-                showMusicName();
-            });
+        // 返回原点时不停止音乐
+        backBtn.addEventListener('click', function() {
+            // 音乐继续播放，不做任何操作
+        });
 
-            // 初始化加载第一首
-            loadMusic(0);
-        })();
+        // 音乐结束时自动播放下一首
+        bgMusic.addEventListener('ended', function() {
+            const newIndex = (currentMusicIndex + 1) % musicList.length;
+            loadMusic(newIndex);
+            showMusicName();
+        });
+
+        // 初始化加载第一首
+        loadMusic(0);
+    });
     </script>
-
 </body>
 </html>
