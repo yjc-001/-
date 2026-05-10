@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>云殇</title>
+    <script src="密钥.js"></script>
+    <script src="档案数据.js"></script>
     <style>
         * {
             margin: 0;
@@ -966,6 +968,296 @@
             transform: translateY(0);
         }
 
+        /* 最高权限验证弹窗 */
+        .admin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+        .admin-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .admin-panel {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(10, 15, 30, 0.95);
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+        }
+
+        .admin-modal.active .admin-panel {
+            transform: scale(1);
+        }
+
+        .admin-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(100, 200, 255, 0.1);
+        }
+
+        .admin-panel-title {
+            font-size: 1.1rem;
+            letter-spacing: 0.3rem;
+            color: rgba(220, 240, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .admin-panel-body {
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .admin-desc {
+            font-size: 0.85rem;
+            color: rgba(150, 190, 230, 0.6);
+            letter-spacing: 0.1rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-input-group {
+            width: 100%;
+        }
+
+        .admin-hint {
+            font-size: 0.8rem;
+            color: rgba(255, 100, 100, 0.8);
+            letter-spacing: 0.1rem;
+            min-height: 1.2rem;
+            text-align: center;
+        }
+
+        /* 编辑档案弹窗 */
+        .edit-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 550;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+        .edit-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .edit-panel {
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            background: rgba(10, 15, 30, 0.95);
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+        }
+
+        .edit-modal.active .edit-panel {
+            transform: scale(1);
+        }
+
+        .edit-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(100, 200, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .edit-panel-title {
+            font-size: 1.1rem;
+            letter-spacing: 0.3rem;
+            color: rgba(220, 240, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .edit-panel-body {
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .edit-panel-footer {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 2rem 1.5rem;
+            border-top: 1px solid rgba(100, 200, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .edit-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .edit-field-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.15rem;
+            color: rgba(150, 190, 230, 0.5);
+            text-transform: uppercase;
+        }
+
+        .edit-field-value {
+            font-size: 0.9rem;
+            color: rgba(200, 230, 255, 0.6);
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(100, 200, 255, 0.1);
+            border-radius: 8px;
+            letter-spacing: 0.1rem;
+        }
+
+        .edit-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-radius: 8px;
+            color: rgba(200, 230, 255, 0.9);
+            font-size: 0.9rem;
+            letter-spacing: 0.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        .edit-input::placeholder {
+            color: rgba(200, 230, 255, 0.3);
+        }
+
+        .edit-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(100, 200, 255, 0.6);
+            box-shadow: 0 0 15px rgba(100, 200, 255, 0.15);
+        }
+
+        .edit-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            border-radius: 8px;
+            color: rgba(200, 230, 255, 0.9);
+            font-size: 0.85rem;
+            letter-spacing: 0.05rem;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Microsoft YaHei', sans-serif;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .edit-textarea:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(100, 200, 255, 0.6);
+            box-shadow: 0 0 15px rgba(100, 200, 255, 0.15);
+        }
+
+        .edit-avatar-preview {
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .edit-btn {
+            border-color: rgba(100, 200, 255, 0.3);
+            color: rgba(150, 200, 255, 0.7);
+        }
+
+        .edit-btn:hover {
+            border-color: rgba(100, 200, 255, 0.6);
+            color: rgba(200, 230, 255, 0.9);
+        }
+
+        /* 模糊处理 */
+        .blur-text {
+            color: transparent;
+            text-shadow: 0 0 8px rgba(100, 200, 255, 0.3);
+            user-select: none;
+            filter: blur(4px);
+        }
+
+        .blur-section {
+            position: relative;
+        }
+
+        .blur-section::after {
+            content: '权限不足';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8rem;
+            letter-spacing: 0.2rem;
+            color: rgba(100, 200, 255, 0.4);
+            background: rgba(10, 15, 30, 0.8);
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(100, 200, 255, 0.2);
+        }
+
+        .archive-welcome {
+            font-size: 1rem;
+            letter-spacing: 0.2rem;
+            color: rgba(150, 200, 255, 0.6);
+            margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 1s ease-out 0.3s;
+            min-height: 1.5rem;
+        }
+
+        .archive-welcome.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* 身份验证失败提示 */
         .auth-fail-tip {
             position: fixed;
@@ -1025,6 +1317,385 @@
             color: rgba(200, 120, 120, 0.6);
         }
 
+        /* 人员档案卡片 */
+        /* 人员档案弹窗 */
+        .personnel-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+        .personnel-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .personnel-panel {
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            background: rgba(10, 15, 30, 0.95);
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+        }
+
+        .personnel-modal.active .personnel-panel {
+            transform: scale(1);
+        }
+
+        .personnel-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(100, 200, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .personnel-panel-title {
+            font-size: 1.1rem;
+            letter-spacing: 0.3rem;
+            color: rgba(220, 240, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .personnel-panel-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* 人物列表 */
+        .personnel-list {
+            width: 280px;
+            border-right: 1px solid rgba(100, 200, 255, 0.1);
+            overflow-y: auto;
+            padding: 1rem 0;
+            flex-shrink: 0;
+        }
+
+        .personnel-list-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .personnel-list-item:hover {
+            background: rgba(100, 200, 255, 0.05);
+        }
+
+        .personnel-list-item.active {
+            background: rgba(100, 200, 255, 0.08);
+            border-left-color: rgba(100, 200, 255, 0.5);
+        }
+
+        .personnel-list-item.self {
+            background: rgba(100, 200, 255, 0.06);
+            border-left-color: rgba(100, 200, 255, 0.3);
+        }
+
+        .personnel-list-item.self.active {
+            background: rgba(100, 200, 255, 0.12);
+            border-left-color: rgba(100, 200, 255, 0.7);
+        }
+
+        .personnel-list-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(50, 100, 150, 0.5));
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: rgba(220, 240, 255, 0.9);
+            flex-shrink: 0;
+        }
+
+        .personnel-list-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            min-width: 0;
+        }
+
+        .personnel-list-name {
+            font-size: 0.9rem;
+            color: rgba(220, 240, 255, 0.9);
+            letter-spacing: 0.1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .personnel-list-meta {
+            font-size: 0.7rem;
+            color: rgba(150, 190, 230, 0.5);
+            letter-spacing: 0.05rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 选中人物详情 */
+        .personnel-detail {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .personnel-detail.show {
+            display: block;
+        }
+
+        .personnel-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .personnel-detail-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.3), rgba(50, 100, 150, 0.5));
+            border: 2px solid rgba(100, 200, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: rgba(220, 240, 255, 0.95);
+            text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
+            flex-shrink: 0;
+        }
+
+        .personnel-detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .personnel-detail-name {
+            font-size: 1.3rem;
+            letter-spacing: 0.2rem;
+            color: rgba(220, 240, 255, 0.95);
+            font-weight: 300;
+        }
+
+        .personnel-detail-rank {
+            font-size: 0.85rem;
+            letter-spacing: 0.1rem;
+            color: rgba(150, 200, 255, 0.6);
+        }
+
+        .personnel-detail-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .personnel-detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .personnel-detail-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.1rem;
+            color: rgba(150, 190, 230, 0.4);
+            text-transform: uppercase;
+        }
+
+        .personnel-detail-value {
+            font-size: 0.9rem;
+            letter-spacing: 0.1rem;
+            color: rgba(200, 230, 255, 0.85);
+        }
+
+        .personnel-detail-brief {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: rgba(180, 210, 240, 0.6);
+            letter-spacing: 0.05rem;
+            border-top: 1px solid rgba(100, 200, 255, 0.1);
+            padding-top: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .bio-btn {
+            padding: 10px 28px;
+            background: transparent;
+            border: 1px solid rgba(100, 200, 255, 0.4);
+            color: rgba(200, 230, 255, 0.85);
+            font-size: 0.85rem;
+            letter-spacing: 0.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        .bio-btn:hover {
+            background: rgba(100, 200, 255, 0.1);
+            border-color: rgba(100, 200, 255, 0.7);
+            box-shadow: 0 0 20px rgba(100, 200, 255, 0.2);
+        }
+
+        /* 传记弹窗 */
+        .bio-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+        }
+
+        .bio-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .bio-panel {
+            width: 100%;
+            max-width: 700px;
+            max-height: 80vh;
+            background: rgba(10, 15, 30, 0.95);
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+        }
+
+        .bio-modal.active .bio-panel {
+            transform: scale(1);
+        }
+
+        .bio-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid rgba(100, 200, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .bio-header-title {
+            font-size: 1.1rem;
+            letter-spacing: 0.3rem;
+            color: rgba(220, 240, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .bio-close {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: 1px solid rgba(100, 200, 255, 0.25);
+            border-radius: 50%;
+            color: rgba(200, 230, 255, 0.5);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .bio-close:hover {
+            background: rgba(255, 100, 100, 0.15);
+            border-color: rgba(255, 100, 100, 0.5);
+            color: rgba(255, 150, 150, 0.9);
+        }
+
+        .bio-content {
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+            line-height: 2;
+            color: rgba(180, 210, 240, 0.75);
+            font-size: 0.9rem;
+            letter-spacing: 0.05rem;
+        }
+
+        .bio-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .bio-content::-webkit-scrollbar-track {
+            background: rgba(100, 200, 255, 0.05);
+        }
+
+        .bio-content::-webkit-scrollbar-thumb {
+            background: rgba(100, 200, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .bio-content h3 {
+            font-size: 1rem;
+            letter-spacing: 0.2rem;
+            color: rgba(200, 230, 255, 0.9);
+            margin: 1.5rem 0 0.8rem 0;
+            font-weight: 300;
+            border-left: 2px solid rgba(100, 200, 255, 0.4);
+            padding-left: 0.8rem;
+        }
+
+        .bio-content p {
+            margin-bottom: 1rem;
+            text-indent: 2em;
+        }
+
+        @media (max-width: 768px) {
+            .personnel-panel-body {
+                flex-direction: column;
+            }
+            .personnel-list {
+                width: 100%;
+                max-height: 200px;
+                border-right: none;
+                border-bottom: 1px solid rgba(100, 200, 255, 0.1);
+            }
+            .personnel-detail {
+                padding: 1rem;
+            }
+        }
         @media (max-width: 768px) {
             .archive-title {
                 font-size: 2rem;
@@ -1044,6 +1715,15 @@
             .card-name {
                 font-size: 0.95rem;
                 letter-spacing: 0.2rem;
+            }
+            .personnel-card {
+                padding: 1.5rem;
+            }
+            .personnel-details {
+                gap: 1.2rem;
+            }
+            .bio-content {
+                padding: 1rem 1.2rem;
             }
         }
 
@@ -1128,6 +1808,7 @@
 
         <div class="page-three-content">
             <h2 class="archive-title">档案馆</h2>
+            <div class="archive-welcome" id="archiveWelcome"></div>
 
             <div class="archive-grid">
                 <div class="archive-card" data-type="public">
@@ -1136,10 +1817,10 @@
                     <div class="card-desc">公开资料与基础信息</div>
                 </div>
 
-                <div class="archive-card" data-type="private">
-                    <div class="card-icon">&#128274;</div>
-                    <div class="card-name">私人档案</div>
-                    <div class="card-desc">个人记录与私密数据</div>
+                <div class="archive-card" data-type="personnel">
+                    <div class="card-icon">&#128100;</div>
+                    <div class="card-name">人员档案</div>
+                    <div class="card-desc">在编人员信息与履历</div>
                 </div>
 
                 <div class="archive-card" data-type="secret">
@@ -1155,7 +1836,96 @@
                 </div>
             </div>
 
+            <!-- 人员档案弹窗 -->
+            <div class="personnel-modal" id="personnelModal">
+                <div class="personnel-panel">
+                    <div class="personnel-panel-header">
+                        <div class="personnel-panel-title">人员档案</div>
+                        <button class="bio-close" id="personnelClose" title="关闭">&#10005;</button>
+                    </div>
+                    <div class="personnel-panel-body">
+                        <!-- 人物列表 -->
+                        <div class="personnel-list" id="personnelList"></div>
+                        <!-- 选中人物的详细信息 -->
+                        <div class="personnel-detail" id="personnelDetail">
+                            <div class="personnel-detail-header">
+                                <div class="personnel-detail-avatar" id="detailAvatar">?</div>
+                                <div class="personnel-detail-info">
+                                    <div class="personnel-detail-name" id="detailName">--</div>
+                                    <div class="personnel-detail-rank" id="detailRank">--</div>
+                                </div>
+                            </div>
+                            <div class="personnel-detail-meta">
+                                <div class="personnel-detail-item">
+                                    <span class="personnel-detail-label">编号</span>
+                                    <span class="personnel-detail-value" id="detailId">--</span>
+                                </div>
+                                <div class="personnel-detail-item">
+                                    <span class="personnel-detail-label">性别</span>
+                                    <span class="personnel-detail-value" id="detailGender">--</span>
+                                </div>
+                                <div class="personnel-detail-item">
+                                    <span class="personnel-detail-label">职位</span>
+                                    <span class="personnel-detail-value" id="detailRank2">--</span>
+                                </div>
+                            </div>
+                            <div class="personnel-detail-brief" id="detailBrief"></div>
+                            <div class="detail-actions">
+                                <button class="bio-btn" id="detailBioBtn">查看完整传记</button>
+                                <button class="bio-btn edit-btn" id="editBtn">编辑档案</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <button class="back-btn archive-back" id="archiveBackBtn">返回</button>
+        </div>
+    </div>
+
+    <!-- 编辑档案弹窗 -->
+    <div class="edit-modal" id="editModal">
+        <div class="edit-panel">
+            <div class="edit-panel-header">
+                <div class="edit-panel-title">编辑档案</div>
+                <button class="bio-close" id="editClose" title="关闭">&#10005;</button>
+            </div>
+            <div class="edit-panel-body" id="editPanelBody">
+                <!-- 动态生成表单内容 -->
+            </div>
+            <div class="edit-panel-footer">
+                <button class="back-btn confirm-btn" id="editSaveBtn">保存</button>
+                <button class="back-btn" id="editCancelBtn" style="margin-left:10px;">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 最高权限验证弹窗 -->
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-panel">
+            <div class="admin-panel-header">
+                <div class="admin-panel-title">最高权限验证</div>
+                <button class="bio-close" id="adminClose" title="关闭">&#10005;</button>
+            </div>
+            <div class="admin-panel-body">
+                <div class="admin-desc">此操作需要最高权限密钥验证</div>
+                <div class="admin-input-group">
+                    <input type="password" class="login-input" id="adminKeyInput" placeholder="输入最高权限密钥" autocomplete="off">
+                </div>
+                <button class="back-btn confirm-btn" id="adminConfirmBtn">验证</button>
+                <div class="admin-hint" id="adminHint"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 传记弹窗 -->
+    <div class="bio-modal" id="bioModal">
+        <div class="bio-panel">
+            <div class="bio-header">
+                <div class="bio-header-title">人物传记</div>
+                <button class="bio-close" id="bioClose" title="关闭">&#10005;</button>
+            </div>
+            <div class="bio-content" id="bioContent"></div>
         </div>
     </div>
 
@@ -1485,32 +2255,142 @@
             }
         });
 
+        // 从密钥.js 读取验证信息（通过 <script> 标签引入，不受 file:// 协议限制）
+        var keyFileData = { id: '', key: '', loaded: false };
+        // 保存当前登录用户的档案数据
+        var currentUserArchive = null;
+        // 当前用户是否为最高权限
+        var isAdmin = false;
+        // 最高权限验证状态（临时输入密钥后生效）
+        var adminVerified = false;
+
+        function loadKeyFile() {
+            // 检查密钥.js 是否正确加载
+            if (typeof KEY_DATA !== 'undefined' && KEY_DATA) {
+                keyFileData.loaded = true;
+                console.log('密钥文件加载成功');
+            } else {
+                console.log('密钥.js 未加载，请确保文件与网页在同一目录');
+                keyFileData.loaded = false;
+            }
+        }
+
+        // 页面加载时读取密钥
+        loadKeyFile();
+
+        // ========== localStorage 数据持久化 ==========
+        var STORAGE_KEY_ARCHIVE = 'yunsang_archive_data';
+        var STORAGE_KEY_KEYDATA = 'yunsang_key_data';
+
+        // 从 localStorage 加载档案数据（覆盖默认的档案数据.js）
+        function loadArchiveFromStorage() {
+            try {
+                var saved = localStorage.getItem(STORAGE_KEY_ARCHIVE);
+                if (saved) {
+                    var parsed = JSON.parse(saved);
+                    // 合并到 ARCHIVE_DATA（保留默认数据中有的字段）
+                    for (var id in parsed) {
+                        if (ARCHIVE_DATA[id]) {
+                            ARCHIVE_DATA[id] = parsed[id];
+                        }
+                    }
+                    console.log('从 localStorage 加载档案数据成功');
+                }
+            } catch (e) {
+                console.log('localStorage 档案数据加载失败:', e);
+            }
+        }
+
+        // 从 localStorage 加载密钥数据
+        function loadKeyDataFromStorage() {
+            try {
+                var saved = localStorage.getItem(STORAGE_KEY_KEYDATA);
+                if (saved) {
+                    var parsed = JSON.parse(saved);
+                    for (var id in parsed) {
+                        if (KEY_DATA[id]) {
+                            KEY_DATA[id] = parsed[id];
+                        }
+                    }
+                    console.log('从 localStorage 加载密钥数据成功');
+                }
+            } catch (e) {
+                console.log('localStorage 密钥数据加载失败:', e);
+            }
+        }
+
+        // 保存档案数据到 localStorage
+        function saveArchiveToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY_ARCHIVE, JSON.stringify(ARCHIVE_DATA));
+            } catch (e) {
+                console.log('localStorage 保存失败:', e);
+            }
+        }
+
+        // 保存密钥数据到 localStorage
+        function saveKeyDataToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY_KEYDATA, JSON.stringify(KEY_DATA));
+            } catch (e) {
+                console.log('localStorage 保存失败:', e);
+            }
+        }
+
+        // 页面加载时尝试从 localStorage 恢复数据
+        if (typeof ARCHIVE_DATA !== 'undefined') {
+            loadArchiveFromStorage();
+        }
+        if (typeof KEY_DATA !== 'undefined') {
+            loadKeyDataFromStorage();
+        }
+
         // 确定按钮 - 身份验证
         document.getElementById('confirmBtn').addEventListener('click', function() {
-            var id = document.getElementById('loginId').value;
-            var key = document.getElementById('loginKey').value;
+            var id = document.getElementById('loginId').value.trim();
+            var key = document.getElementById('loginKey').value.trim();
 
-            // 验证逻辑：编号和密钥都为 12345
-            if (id === '12345' && key === '12345') {
-                // 验证成功，关闭登录面板并更新按钮
-                document.getElementById('loginPanel').classList.remove('show');
-                setTimeout(function() {
-                    btnGroup.classList.remove('hide');
-                    pageTwoTitle.style.opacity = '1';
-                    document.getElementById('loginId').value = '';
-                    document.getElementById('loginKey').value = '';
-                    // 更新按钮为档案馆
-                    updateBtnGroup();
-                    // 进入第三页
-                    setTimeout(function() {
-                        enterPageThree();
-                    }, 500);
-                }, 300);
+            // 使用密钥文件中的数据进行验证
+            if (keyFileData.loaded && KEY_DATA[id] && KEY_DATA[id].key === key) {
+                // 验证成功，保存当前登录编号
+                keyFileData.id = id;
+                keyFileData.key = key;
+                // 设置最高权限标记
+                isAdmin = KEY_DATA[id].admin === true;
+                adminVerified = isAdmin; // 最高权限用户自动通过
+                loginSuccess();
+            } else if (!keyFileData.loaded) {
+                // 密钥文件未加载，提示用户
+                showKeyFileFail('无法读取密钥.js，请确保文件与网页在同一目录');
             } else {
-                // 验证失败，显示提示
+                // 验证失败
                 showAuthFail();
             }
         });
+
+        // 登录成功处理
+        function loginSuccess() {
+            // 从档案数据.js加载对应编号的档案
+            if (typeof ARCHIVE_DATA !== 'undefined' && ARCHIVE_DATA && ARCHIVE_DATA[keyFileData.id]) {
+                currentUserArchive = ARCHIVE_DATA[keyFileData.id];
+            } else {
+                currentUserArchive = null;
+                console.log('未找到编号 ' + keyFileData.id + ' 的档案数据');
+            }
+            document.getElementById('loginPanel').classList.remove('show');
+            setTimeout(function() {
+                btnGroup.classList.remove('hide');
+                pageTwoTitle.style.opacity = '1';
+                document.getElementById('loginId').value = '';
+                document.getElementById('loginKey').value = '';
+                // 更新按钮为档案馆
+                updateBtnGroup();
+                // 进入第三页
+                setTimeout(function() {
+                    enterPageThree();
+                }, 500);
+            }, 300);
+        }
 
         // 进入第三页面
         function enterPageThree() {
@@ -1549,6 +2429,16 @@
             }, 500);
 
             setTimeout(function() {
+                var welcomeEl = document.getElementById('archiveWelcome');
+                if (welcomeEl && currentUserArchive && currentUserArchive.name) {
+                    welcomeEl.textContent = '欢迎回来，' + currentUserArchive.name;
+                    welcomeEl.classList.add('show');
+                }
+            }, 700);
+
+
+
+            setTimeout(function() {
                 archiveGrid.classList.add('show');
             }, 800);
 
@@ -1560,12 +2450,35 @@
         // 显示身份验证失败提示
         function showAuthFail() {
             var tip = document.getElementById('authFailTip');
+            var icon = tip.querySelector('.auth-fail-icon');
+            var text = tip.querySelector('.auth-fail-text');
+            var sub = tip.querySelector('.auth-fail-sub');
+            if (icon) icon.innerHTML = '&#9888;';
+            if (text) text.textContent = '身份验证失败';
+            if (sub) sub.textContent = '编号或密钥错误';
             tip.classList.add('active');
 
             // 2秒后自动消失
             setTimeout(function() {
                 tip.classList.remove('active');
             }, 2000);
+        }
+
+        // 显示密钥文件读取失败提示
+        function showKeyFileFail(msg) {
+            var tip = document.getElementById('authFailTip');
+            var icon = tip.querySelector('.auth-fail-icon');
+            var text = tip.querySelector('.auth-fail-text');
+            var sub = tip.querySelector('.auth-fail-sub');
+            if (icon) icon.innerHTML = '&#128196;';
+            if (text) text.textContent = '密钥文件读取失败';
+            if (sub) sub.textContent = msg || '请确保密钥.js与网页在同一目录';
+            tip.classList.add('active');
+
+            // 3秒后自动消失
+            setTimeout(function() {
+                tip.classList.remove('active');
+            }, 3000);
         }
 
         // 点击提示背景也可关闭
@@ -1604,6 +2517,12 @@
                 archiveBack.classList.remove('show');
                 archiveGrid.classList.remove('show');
                 archiveTitle.classList.remove('show');
+                var welcomeEl = document.getElementById('archiveWelcome');
+                if (welcomeEl) {
+                    welcomeEl.classList.remove('show');
+                    welcomeEl.textContent = '';
+                }
+
                 pageThreeContent.classList.remove('show');
                 pageThreeOverlay.classList.remove('show');
                 pageThreeBg.classList.remove('show');
@@ -1613,6 +2532,10 @@
                     pageThree.classList.remove('active');
                     pageTwoEl.style.display = 'block';
                     pageTwoEl.classList.add('active');
+                    // 重置最高权限验证状态（非最高权限用户每次进入需重新验证）
+                    if (!isAdmin) {
+                        adminVerified = false;
+                    }
 
                     // 恢复第二页背景元素
                     pageTwoBgImg.classList.add('show');
@@ -1788,6 +2711,478 @@
 
         // 初始化加载第一首
         loadMusic(0);
+
+        // ========== 最高权限验证弹窗 ==========
+        var adminModal = document.getElementById('adminModal');
+        var adminClose = document.getElementById('adminClose');
+        var adminConfirmBtn = document.getElementById('adminConfirmBtn');
+        var adminKeyInput = document.getElementById('adminKeyInput');
+        var adminHint = document.getElementById('adminHint');
+        // 保存待执行的权限操作回调
+        var pendingAdminAction = null;
+
+        function openAdminModal(onVerified) {
+            pendingAdminAction = onVerified;
+            adminKeyInput.value = '';
+            adminHint.textContent = '';
+            adminModal.classList.add('active');
+            setTimeout(function() { adminKeyInput.focus(); }, 100);
+        }
+
+        function closeAdminModal() {
+            adminModal.classList.remove('active');
+            pendingAdminAction = null;
+        }
+
+        function verifyAdminKey() {
+            var key = adminKeyInput.value.trim();
+            // 最高权限密钥：admin123
+            if (key === 'admin123') {
+                adminVerified = true;
+                closeAdminModal();
+                // 刷新当前选中的人物卡片显示
+                if (selectedId) {
+                    selectPersonnel(selectedId);
+                }
+                if (pendingAdminAction) {
+                    pendingAdminAction();
+                }
+            } else {
+                adminHint.textContent = '密钥错误，请重新输入';
+                adminKeyInput.value = '';
+            }
+        }
+
+        adminClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeAdminModal();
+        });
+
+        adminModal.addEventListener('click', function(e) {
+            if (e.target === adminModal) {
+                closeAdminModal();
+            }
+        });
+
+        adminConfirmBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            verifyAdminKey();
+        });
+
+        adminKeyInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                verifyAdminKey();
+            }
+        });
+
+        // ========== 人员档案弹窗 ==========
+        var personnelModal = document.getElementById('personnelModal');
+        var personnelClose = document.getElementById('personnelClose');
+        var personnelList = document.getElementById('personnelList');
+        var personnelDetail = document.getElementById('personnelDetail');
+        var detailBioBtn = document.getElementById('detailBioBtn');
+
+        // 传记弹窗
+        var bioModal = document.getElementById('bioModal');
+        var bioClose = document.getElementById('bioClose');
+        var bioContent = document.getElementById('bioContent');
+
+        // 当前选中的人物档案
+        var selectedArchive = null;
+        var selectedId = null;
+
+        // 检查是否有查看权限（自己或最高权限）
+        function canViewFull(id) {
+            return isAdmin || adminVerified || id === keyFileData.id;
+        }
+
+        // 渲染人物列表
+        function renderPersonnelList() {
+            if (typeof ARCHIVE_DATA === 'undefined' || !ARCHIVE_DATA) {
+                personnelList.innerHTML = '<div style="padding:1rem;color:rgba(150,190,230,0.5);text-align:center;">暂无人员数据</div>';
+                return;
+            }
+            var html = '';
+            var keys = Object.keys(ARCHIVE_DATA);
+            // 将当前登录账号置顶
+            var sortedKeys = [];
+            var otherKeys = [];
+            for (var i = 0; i < keys.length; i++) {
+                if (keys[i] === keyFileData.id) {
+                    sortedKeys.push(keys[i]);
+                } else {
+                    otherKeys.push(keys[i]);
+                }
+            }
+            sortedKeys = sortedKeys.concat(otherKeys);
+
+            for (var i = 0; i < sortedKeys.length; i++) {
+                var id = sortedKeys[i];
+                var data = ARCHIVE_DATA[id];
+                var firstChar = data.name ? data.name.charAt(0) : '?';
+                var isSelf = id === keyFileData.id;
+                html += '<div class="personnel-list-item' + (isSelf ? ' self' : '') + '" data-id="' + id + '">';
+                if (data.avatar) {
+                    html += '<div class="personnel-list-avatar" style="padding:0;overflow:hidden;"><img src="' + data.avatar + '" style="width:100%;height:100%;object-fit:cover;"></div>';
+                } else {
+                    html += '<div class="personnel-list-avatar">' + firstChar + '</div>';
+                }
+                html += '<div class="personnel-list-info">';
+                html += '<div class="personnel-list-name">' + (data.name || '--') + (isSelf ? ' <span style="font-size:0.65rem;color:rgba(100,200,255,0.6);">[当前]</span>' : '') + '</div>';
+                html += '<div class="personnel-list-meta">' + id + ' · ' + (data.rank || '--') + '</div>';
+                html += '</div></div>';
+            }
+            personnelList.innerHTML = html;
+
+            // 绑定列表项点击事件
+            var items = personnelList.querySelectorAll('.personnel-list-item');
+            for (var j = 0; j < items.length; j++) {
+                items[j].addEventListener('click', function() {
+                    var id = this.getAttribute('data-id');
+                    selectPersonnel(id);
+                    // 更新激活状态
+                    for (var k = 0; k < items.length; k++) {
+                        items[k].classList.remove('active');
+                    }
+                    this.classList.add('active');
+                });
+            }
+        }
+
+        // 选中人物并显示详情（带权限控制）
+        function selectPersonnel(id) {
+            if (!ARCHIVE_DATA || !ARCHIVE_DATA[id]) return;
+            selectedId = id;
+            selectedArchive = ARCHIVE_DATA[id];
+            var firstChar = selectedArchive.name ? selectedArchive.name.charAt(0) : '?';
+            var hasFullAccess = canViewFull(id);
+
+            if (selectedArchive.avatar) {
+                document.getElementById('detailAvatar').innerHTML = '<img src="' + selectedArchive.avatar + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+                document.getElementById('detailAvatar').style.padding = '0';
+                document.getElementById('detailAvatar').style.overflow = 'hidden';
+            } else {
+                document.getElementById('detailAvatar').textContent = firstChar;
+                document.getElementById('detailAvatar').innerHTML = firstChar;
+                document.getElementById('detailAvatar').style.padding = '';
+                document.getElementById('detailAvatar').style.overflow = '';
+            }
+            document.getElementById('detailName').textContent = selectedArchive.name || '--';
+            document.getElementById('detailRank').textContent = selectedArchive.rank || '--';
+            document.getElementById('detailId').textContent = id;
+            document.getElementById('detailGender').textContent = selectedArchive.gender || '--';
+            document.getElementById('detailRank2').textContent = selectedArchive.rank || '--';
+
+            // 简介部分：无权限时模糊处理
+            var briefEl = document.getElementById('detailBrief');
+            if (hasFullAccess) {
+                briefEl.textContent = selectedArchive.brief || '';
+                briefEl.classList.remove('blur-text');
+            } else {
+                briefEl.textContent = selectedArchive.brief || '';
+                briefEl.classList.add('blur-text');
+            }
+
+            // 传记按钮：无权限时显示需要验证
+            if (hasFullAccess) {
+                detailBioBtn.textContent = '查看完整传记';
+                detailBioBtn.style.opacity = '1';
+                detailBioBtn.style.pointerEvents = 'all';
+            } else {
+                detailBioBtn.textContent = '查看完整传记（需权限）';
+                detailBioBtn.style.opacity = '0.5';
+            }
+
+            personnelDetail.classList.add('show');
+        }
+
+        // 打开人员档案弹窗
+        function openPersonnelModal() {
+            renderPersonnelList();
+            personnelDetail.classList.remove('show');
+            personnelModal.classList.add('active');
+            // 如果有当前登录用户的档案，默认选中
+            if (keyFileData.id && ARCHIVE_DATA && ARCHIVE_DATA[keyFileData.id]) {
+                setTimeout(function() {
+                    selectPersonnel(keyFileData.id);
+                    var items = personnelList.querySelectorAll('.personnel-list-item');
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].getAttribute('data-id') === keyFileData.id) {
+                            items[i].classList.add('active');
+                        }
+                    }
+                }, 100);
+            }
+        }
+
+        // 关闭人员档案弹窗
+        function closePersonnelModal() {
+            personnelModal.classList.remove('active');
+            personnelDetail.classList.remove('show');
+            var items = personnelList.querySelectorAll('.personnel-list-item');
+            for (var i = 0; i < items.length; i++) {
+                items[i].classList.remove('active');
+            }
+        }
+
+        personnelClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closePersonnelModal();
+        });
+
+        personnelModal.addEventListener('click', function(e) {
+            if (e.target === personnelModal) {
+                closePersonnelModal();
+            }
+        });
+
+        // 人员档案卡片点击事件
+        document.querySelector('.archive-card[data-type="personnel"]').addEventListener('click', function() {
+            openPersonnelModal();
+        });
+
+        // 绝密档案卡片点击事件（需最高权限）
+        document.querySelector('.archive-card[data-type="secret"]').addEventListener('click', function() {
+            if (isAdmin || adminVerified) {
+                showAuthFail(); // 占位：实际功能待开发
+            } else {
+                openAdminModal(function() {
+                    showAuthFail(); // 验证通过后执行
+                });
+            }
+        });
+
+        // 战斗记录卡片点击事件（需最高权限）
+        document.querySelector('.archive-card[data-type="battle"]').addEventListener('click', function() {
+            if (isAdmin || adminVerified) {
+                showAuthFail(); // 占位：实际功能待开发
+            } else {
+                openAdminModal(function() {
+                    showAuthFail(); // 验证通过后执行
+                });
+            }
+        });
+
+        // 从 selectedArchive 渲染传记内容
+        function renderBio() {
+            if (!selectedArchive || !selectedArchive.bio) {
+                bioContent.innerHTML = '<p style="text-align:center;color:rgba(150,190,230,0.5);">暂无传记数据</p>';
+                return;
+            }
+            var html = '';
+            var bio = selectedArchive.bio;
+            for (var i = 0; i < bio.length; i++) {
+                html += '<h3>' + bio[i].title + '</h3>';
+                for (var j = 0; j < bio[i].content.length; j++) {
+                    html += '<p>' + bio[i].content[j] + '</p>';
+                }
+            }
+            bioContent.innerHTML = html;
+        }
+
+        // 详情页查看传记按钮（带权限控制）
+        detailBioBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (!selectedId) return;
+
+            if (canViewFull(selectedId)) {
+                // 有权限，直接显示
+                renderBio();
+                bioModal.classList.add('active');
+            } else {
+                // 无权限，弹出验证弹窗
+                openAdminModal(function() {
+                    // 验证通过后刷新显示并打开传记
+                    selectPersonnel(selectedId);
+                    renderBio();
+                    bioModal.classList.add('active');
+                });
+            }
+        });
+
+        bioClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            bioModal.classList.remove('active');
+        });
+
+        bioModal.addEventListener('click', function(e) {
+            if (e.target === bioModal) {
+                bioModal.classList.remove('active');
+            }
+        });
+
+        // ========== 编辑档案功能 ==========
+        var editModal = document.getElementById('editModal');
+        var editClose = document.getElementById('editClose');
+        var editSaveBtn = document.getElementById('editSaveBtn');
+        var editCancelBtn = document.getElementById('editCancelBtn');
+        var editPanelBody = document.getElementById('editPanelBody');
+        var editBtn = document.getElementById('editBtn');
+
+        // 当前正在编辑的档案编号
+        var editingId = null;
+
+        // 判断是否可以编辑
+        function canEdit(id) {
+            // 自己的档案可以编辑
+            if (id === keyFileData.id) return true;
+            // 最高权限可以编辑他人
+            if (isAdmin || adminVerified) return true;
+            return false;
+        }
+
+        // 打开编辑弹窗
+        function openEditModal() {
+            if (!selectedId || !ARCHIVE_DATA[selectedId]) return;
+            editingId = selectedId;
+            var data = ARCHIVE_DATA[editingId];
+            var isSelf = editingId === keyFileData.id;
+            var isAdminMode = (isAdmin || adminVerified) && !isSelf;
+
+            var formHtml = '';
+
+            if (isSelf) {
+                // 编辑自己的档案：可改编号、密钥、名字、性别、头像、传记简介
+                formHtml += '<div class="edit-field"><div class="edit-field-label">编号</div><input type="text" class="edit-input" id="editId" value="' + editingId + '"></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">密钥</div><input type="text" class="edit-input" id="editKey" value="' + (KEY_DATA[editingId] ? KEY_DATA[editingId].key : '') + '"></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">姓名</div><input type="text" class="edit-input" id="editName" value="' + (data.name || '') + '"></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">性别</div><input type="text" class="edit-input" id="editGender" value="' + (data.gender || '') + '"></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">头像</div><div class="edit-avatar-preview" id="editAvatarPreview">' + (data.avatar ? '<img src="' + data.avatar + '" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid rgba(100,200,255,0.4);">' : '<div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(100,200,255,0.3),rgba(50,100,150,0.5));border:2px solid rgba(100,200,255,0.4);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:rgba(220,240,255,0.95);">' + (data.name ? data.name.charAt(0) : '?') + '</div>') + '</div><input type="file" class="edit-input" id="editAvatarFile" accept="image/*" style="padding:8px 14px;font-size:0.8rem;"><div style="font-size:0.7rem;color:rgba(150,190,230,0.4);margin-top:4px;">上传图片作为头像，留空则使用名字首字</div></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">职位（不可修改）</div><div class="edit-field-value">' + (data.rank || '--') + '</div></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">简介</div><textarea class="edit-textarea" id="editBrief">' + (data.brief || '') + '</textarea></div>';
+            } else if (isAdminMode) {
+                // 最高权限编辑他人：只可以改传记简介和职位
+                formHtml += '<div class="edit-field"><div class="edit-field-label">编号（不可修改）</div><div class="edit-field-value">' + editingId + '</div></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">姓名（不可修改）</div><div class="edit-field-value">' + (data.name || '--') + '</div></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">性别（不可修改）</div><div class="edit-field-value">' + (data.gender || '--') + '</div></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">职位</div><input type="text" class="edit-input" id="editRank" value="' + (data.rank || '') + '"></div>';
+                formHtml += '<div class="edit-field"><div class="edit-field-label">简介</div><textarea class="edit-textarea" id="editBrief">' + (data.brief || '') + '</textarea></div>';
+            }
+
+            editPanelBody.innerHTML = formHtml;
+            editModal.classList.add('active');
+        }
+
+        // 关闭编辑弹窗
+        function closeEditModal() {
+            editModal.classList.remove('active');
+            editingId = null;
+        }
+
+        // 保存编辑
+        function saveEdit() {
+            if (!editingId || !ARCHIVE_DATA[editingId]) return;
+            var isSelf = editingId === keyFileData.id;
+            var isAdminMode = (isAdmin || adminVerified) && !isSelf;
+
+            if (isSelf) {
+                // 保存自己的修改
+                var newId = document.getElementById('editId').value.trim();
+                var newKey = document.getElementById('editKey').value.trim();
+                var newName = document.getElementById('editName').value.trim();
+                var newGender = document.getElementById('editGender').value.trim();
+                var newBrief = document.getElementById('editBrief').value.trim();
+                var avatarFile = document.getElementById('editAvatarFile').files[0];
+
+                function finishSelfSave(avatarBase64) {
+                    // 如果编号变更，需要迁移数据
+                    if (newId && newId !== editingId) {
+                        ARCHIVE_DATA[newId] = ARCHIVE_DATA[editingId];
+                        delete ARCHIVE_DATA[editingId];
+                        // 更新密钥
+                        if (KEY_DATA[editingId]) {
+                            KEY_DATA[newId] = { key: newKey || KEY_DATA[editingId].key, admin: KEY_DATA[editingId].admin };
+                            delete KEY_DATA[editingId];
+                        }
+                        // 更新当前登录信息
+                        keyFileData.id = newId;
+                        editingId = newId;
+                    } else {
+                        // 只更新密钥
+                        if (KEY_DATA[editingId]) {
+                            KEY_DATA[editingId].key = newKey || KEY_DATA[editingId].key;
+                        }
+                    }
+
+                    // 更新档案数据
+                    ARCHIVE_DATA[editingId].name = newName;
+                    ARCHIVE_DATA[editingId].gender = newGender;
+                    if (newBrief) ARCHIVE_DATA[editingId].brief = newBrief;
+                    if (avatarBase64) ARCHIVE_DATA[editingId].avatar = avatarBase64;
+
+                    // 保存到 localStorage
+                    saveArchiveToStorage();
+                    saveKeyDataToStorage();
+
+                    // 刷新显示
+                    selectPersonnel(editingId);
+                    renderPersonnelList();
+                    closeEditModal();
+                }
+
+                if (avatarFile) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        finishSelfSave(e.target.result);
+                    };
+                    reader.readAsDataURL(avatarFile);
+                } else {
+                    finishSelfSave(null);
+                }
+                return;
+
+            } else if (isAdminMode) {
+                // 最高权限保存他人的修改：只改职位和简介
+                var newRank = document.getElementById('editRank').value.trim();
+                var newBrief = document.getElementById('editBrief').value.trim();
+                ARCHIVE_DATA[editingId].rank = newRank;
+                if (newBrief) ARCHIVE_DATA[editingId].brief = newBrief;
+
+                // 保存到 localStorage
+                saveArchiveToStorage();
+                saveKeyDataToStorage();
+
+                // 刷新显示
+                selectPersonnel(editingId);
+                renderPersonnelList();
+                closeEditModal();
+            }
+        }
+
+        // 编辑按钮点击事件
+        editBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (!selectedId) return;
+            if (!canEdit(selectedId)) {
+                // 无权限，弹出验证
+                openAdminModal(function() {
+                    openEditModal();
+                });
+            } else {
+                openEditModal();
+            }
+        });
+
+        editClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeEditModal();
+        });
+
+        editCancelBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeEditModal();
+        });
+
+        editSaveBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            saveEdit();
+        });
+
+        editModal.addEventListener('click', function(e) {
+            if (e.target === editModal) {
+                closeEditModal();
+            }
+        });
     });
     </script>
 </body>
